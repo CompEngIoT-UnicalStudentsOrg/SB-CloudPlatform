@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+    broker:
+        image: eclipse-mosquitto
+        restart: always
+        networks: 
+            - mqtt
+        ports:
+            - 1883:1883
+        command:
+            ["mosquitto" "-v"]
+    
+    datastore:
+        image: redis
+        restart: always
+        networks:
+            - redis
+        ports:
+            - 6349:6349
+        
+
+    backend:
+        build: ./services
+        restart: always
+        volumes:
+            - ./backend_flow.json:/data/backend_flow.json
+        networks:
+            - mqtt
+            - redis
+        ports:
+            - 1880:1880
+        depends_on:
+            - broker
+            - datastore
+
+networks:
+    - mqtt
+    - redis
