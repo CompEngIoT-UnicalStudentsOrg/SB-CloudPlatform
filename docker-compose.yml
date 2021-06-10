@@ -9,7 +9,7 @@ services:
         ports:
             - 1883:1883
         command:
-            ["mosquitto" "-v"]
+            ["mosquitto", "-v"]
     
     datastore:
         image: redis
@@ -24,7 +24,7 @@ services:
         build: ./services
         restart: always
         volumes:
-            - ./backend_flow.json:/data/backend_flow.json
+            - nodered-data:/data
         networks:
             - mqtt
             - redis
@@ -35,5 +35,9 @@ services:
             - datastore
 
 networks:
-    - mqtt
-    - redis
+    mqtt:
+    redis:
+
+volumes:
+    nodered-data:
+        external: false
