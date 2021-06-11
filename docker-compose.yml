@@ -23,8 +23,6 @@ services:
     backend:
         build: ./services
         restart: always
-        volumes:
-            - nodered-data:/data
         networks:
             - mqtt
             - redis
@@ -37,7 +35,4 @@ services:
 networks:
     mqtt:
     redis:
-
-volumes:
-    nodered-data:
-        external: false
+        

@@ -4,7 +4,7 @@ This repository contains the implementation of the Cloud backend.
 
 ## MQTT edge connection
 
-Data cinoming form the edge architecture arrives through MQTT. A broker is started on the cloud.
+Data coming form the edge architecture arrives through MQTT. A broker is started on the cloud.
 
 ## Services 
 
