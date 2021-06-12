@@ -17,7 +17,7 @@ services:
         networks:
             - redis
         ports:
-            - 6349:6349
+            - 6379:6379
         
 
     backend:

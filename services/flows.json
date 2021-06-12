@@ -1,1 +1,1 @@
-{}
+[{"id":"c76a084d.de8088","type":"function","z":"82e84c46.b48358","name":"","func":"const msgSplitted = msg.topic.split(\"/\").filter((elem) => elem != \"\");\nreturn  {\"payload\": [msg.topic, msg.payload], \"splitted\": msgSplitted};","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":360,"y":140,"wires":[["d6144d2.bffcab"]]}]
