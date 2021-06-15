@@ -19,7 +19,6 @@ services:
         ports:
             - 6379:6379
         
-
     backend:
         build: ./services
         restart: always
@@ -28,15 +27,27 @@ services:
         networks:
             - mqtt
             - redis
+            - telegram
         ports:
             - 1880:1880
         depends_on:
             - broker
             - datastore
 
+    telegram_layer:
+        build: ./telegram_api
+        restart: always
+        networks: 
+            - telegram
+        environment: 
+            - TELEGRAM_KEY=${TELEGRAM_KEY}
+        depends_on: 
+            - backend
+
 networks:
     mqtt:
     redis:
+    telegram:
 
 volumes:
     nodered_data:
