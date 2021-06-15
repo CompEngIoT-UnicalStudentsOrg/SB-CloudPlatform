@@ -1,10 +1,10 @@
 from telegram.ext import Updater, CommandHandler
 import requests
 import json
+import os
 
-
-token = ""
-endpoint = "http://localhost:1880/api/room/{}"
+token = os.environ["TELEGRAM_KEY"]
+endpoint = "http://backend:1880/api/room/{}"
 
 def get_handler(update, context):
     # print(update, context)
