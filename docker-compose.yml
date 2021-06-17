@@ -28,14 +28,16 @@ services:
             - mqtt
             - redis
             - telegram
+            - decision
         ports:
             - 1880:1880
         depends_on:
             - broker
             - datastore
+            - decision_layer
 
     telegram_layer:
-        build: ./telegram_api
+        build: ./telegram-api
         restart: always
         networks: 
             - telegram
@@ -44,10 +46,18 @@ services:
         depends_on: 
             - backend
 
+    decision_layer:
+        build: ./decision-making
+        restart: always
+        networks:
+            - decision
+
+
 networks:
     mqtt:
     redis:
     telegram:
+    decision:
 
 volumes:
     nodered_data:
