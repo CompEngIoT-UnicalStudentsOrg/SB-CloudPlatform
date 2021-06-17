@@ -4,7 +4,7 @@ import json
 import os
 
 token = os.environ["TELEGRAM_KEY"]
-endpoint = "http://backend:1880/api/room/{}"
+endpoint = "http://backend/api/room/{}"
 
 def get_handler(update, context):
     # print(update, context)
