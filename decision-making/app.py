@@ -74,4 +74,4 @@ class DecisionMaker(Resource):
 
 
 if __name__ == '__main__':
-	flask.run()
+	app.run()
