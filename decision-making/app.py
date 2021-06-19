@@ -27,8 +27,15 @@ class DecisionMaker(Resource):
 		hum_min = 47
 		critical_max_hum = 65
 		critical_min_hum = 40
-		distance = 1 #meters, default
 		room_dimension = 200 # mq
+		cmd = {
+			"heating": 0,
+			"ventilaton": 0,
+			"humidifier": 0,
+			"dehumidifier": 0,
+			"distance": 0,
+			"people_cap": 0 
+		}
 
 		if summer:
 			temp_max = 26
