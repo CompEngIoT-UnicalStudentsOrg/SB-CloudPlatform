@@ -8,11 +8,7 @@ services:
     ports:
       - 1883:1883
     deploy:
-      replicas: 2
-      update_config:
-        parellelism: 2
-        delay: 10s
-        order: stop-first
+      replicas: 1
     command:
       ["mosquitto", "-v"]
   
@@ -22,13 +18,9 @@ services:
       - redis
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: stop-forst
 
   backend:
-    image: ghcr.io/compengiot-unicalstudentsorg/cloud-decision:0.1.0
+    image: ghcr.io/compengiot-unicalstudentsorg/cloud-nodered:0.1.0
     networks:
       - mqtt
       - redis
@@ -36,10 +28,6 @@ services:
       - decision
     deploy:
       replicas: 2
-      update_config:
-        parellelism: 2
-        delay: 10s
-        order: stop-first
     depends_on:
       - broker
       - datastore
@@ -55,10 +43,6 @@ services:
       - backend
     deploy:
       replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: stop-forst
 
   decision_layer:
     image: ghcr.io/compengiot-unicalstudentsorg/cloud-decision:0.1.0
@@ -66,10 +50,6 @@ services:
       - decision
     deploy:
       replicas: 2
-      update_config:
-        parellelism: 2
-        delay: 10s
-        order: stop-first
 
 volumes:
   nodered_data: 
