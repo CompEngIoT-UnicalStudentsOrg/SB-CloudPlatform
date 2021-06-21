@@ -1,0 +1,86 @@
+version: "3.4"
+
+services:
+  broker:
+    image: eclipse-mosquitto:1.6.5
+    networks:
+      - mqtt
+    ports:
+      - 1883:1883
+    deploy:
+      replicas: 2
+      update_config:
+        parellelism: 2
+        delay: 10s
+        order: stop-first
+    command:
+      ["mosquitto", "-v"]
+  
+  datastore:
+    image: redis:6.2.4
+    networks:
+      - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-forst
+
+  backend:
+    image: ghcr.io/compengiot-unicalstudentsorg/cloud-decision:0.1.0
+    networks:
+      - mqtt
+      - redis
+      - telegram
+      - decision
+    deploy:
+      replicas: 2
+      update_config:
+        parellelism: 2
+        delay: 10s
+        order: stop-first
+    depends_on:
+      - broker
+      - datastore
+      - decision_layer
+  
+  telegram_layer:
+    image: ghcr.io/compengiot-unicalstudentsorg/cloud-telegram-api:0.1.0
+    networks:
+      - telegram
+    environment:
+      - TELEGRAM_KEY=${TELEGRAM_KEY}
+    depends_on:
+      - backend
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-forst
+
+  decision_layer:
+    image: ghcr.io/compengiot-unicalstudentsorg/cloud-decision:0.1.0
+    networks:
+      - decision
+    deploy:
+      replicas: 2
+      update_config:
+        parellelism: 2
+        delay: 10s
+        order: stop-first
+
+volumes:
+  nodered_data: 
+    external: false
+
+networks:
+  mqtt:
+    driver: overlay
+  redis:
+    driver: overlay
+  telegram:
+    driver: overlay
+  decision:
+    driver: overlay
