@@ -26,6 +26,8 @@ services:
       - redis
       - telegram
       - decision
+    ports:
+      - 1880:1880
     deploy:
       replicas: 2
     depends_on:
