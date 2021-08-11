@@ -119,4 +119,4 @@ This project is really a proof of concept, with some details missing from a real
 - Adding SSL certificates to make everything run under HTTPS.
 - Using broker authentication and certificates.
 - Adding a load balancer on top of the swarm orchestration routing system.
-- Scaling the number of nodes, at least 3 mastes that don't execute codes should be needed to make the system robust.
+- Scaling the number of nodes, at least 3 masters that don't execute code are needed to make the system more robust.
